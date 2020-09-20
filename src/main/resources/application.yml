@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ta-conversation-storage
+
+server:
+  port: 8020
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:
+        http://localhost:5000/eureka/
