@@ -20,3 +20,15 @@ eureka:
     serviceUrl:
       defaultZone:
         http://localhost:5000/eureka/
+
+keycloak:
+  realm: talk-active
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: ta-conversation-storage
+  #  credentials:
+  #    secret: e3df8a05-62a1-4836-a3f5-12e1ff0d5efb
+  use-resource-role-mappings: true
+  autodetect-bearer-only: true
+  bearer-only: true
+  principal-attribute: preferred_username
