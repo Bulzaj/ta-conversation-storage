@@ -21,7 +21,7 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     @Override
-    public Message save(MessageDTO messageDTO) {
+    public MessageDTO save(MessageDTO messageDTO) {
 
         Message senderMessage = new Message(messageDTO);
         Message receiverMessage = new Message(messageDTO);
@@ -43,6 +43,6 @@ public class ConversationServiceImpl implements ConversationService {
         conversationRepository.save(receiverConversation);
         messageRepository.save(receiverMessage);
 
-        return new Message(messageDTO);
+        return messageDTO;
     }
 }
