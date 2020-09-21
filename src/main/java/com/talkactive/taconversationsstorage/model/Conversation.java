@@ -17,7 +17,10 @@ public class Conversation {
     @Column(unique = true)
     private String conversationMember;
 
-    @OneToMany(mappedBy = "conversation")
+    @OneToMany(
+            mappedBy = "conversation",
+            cascade = CascadeType.ALL
+    )
     private List<Message> messages;
 
     public Conversation() {

@@ -56,19 +56,19 @@ public class Message {
         this.createdAt = createdAt;
     }
 
-    public Conversation getConversation() {
-        return conversation;
-    }
-
-    public void setConversation(Conversation conversation) {
-        this.conversation = conversation;
-    }
-
     public String getSenderName() {
         return senderName;
     }
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 }
