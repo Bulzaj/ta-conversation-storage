@@ -11,10 +11,8 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(unique = true)
     private String conversationOwner;
 
-    @Column(unique = true)
     private String conversationMember;
 
     @OneToMany(
