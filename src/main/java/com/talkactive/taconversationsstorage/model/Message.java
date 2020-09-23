@@ -11,7 +11,9 @@ public class Message {
     private UUID id;
     private String messageBody;
     private String senderName;
+    private String receiverName;
     private Long createdAt;
+    private String messageType;
 
     @ManyToOne
     private Conversation conversation;
@@ -19,16 +21,20 @@ public class Message {
     public Message() {
     }
 
-    public Message(String messageBody, Long createdAt, String messageType, String senderName, Conversation conversation) {
+    public Message(String messageBody, Long createdAt, String messageType, String senderName, String receiverName,Conversation conversation) {
         this.messageBody = messageBody;
         this.createdAt = createdAt;
         this.senderName = senderName;
+        this.receiverName = receiverName;
         this.conversation = conversation;
+        this.messageType = messageType;
     }
 
     public Message(MessageDTO messageDTO) {
         this.messageBody = messageDTO.getMessageBody();
         this.senderName = messageDTO.getSenderName();
+        this.receiverName = messageDTO.getReceiverName();
+        this.messageType = messageDTO.getMessageType();
         this.createdAt = messageDTO.getCreatedAt();
     }
 
@@ -70,5 +76,21 @@ public class Message {
 
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
 }

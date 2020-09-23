@@ -13,4 +13,6 @@ public interface ConversationService {
     MessageDTO save(MessageDTO messageDTO);
 
     List<ConversationDTO> getConversations(Principal principal);
+
+    List<MessageDTO> getMessages(Principal principal, String conversationMember);
 }

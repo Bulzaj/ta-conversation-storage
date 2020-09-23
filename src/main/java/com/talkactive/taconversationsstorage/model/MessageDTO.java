@@ -19,6 +19,14 @@ public class MessageDTO {
         this.messageType = messageType;
     }
 
+    public MessageDTO(Message message) {
+        this.senderName = message.getSenderName();
+        this.receiverName = message.getReceiverName();
+        this.createdAt = message.getCreatedAt();
+        this.messageBody = message.getMessageBody();
+        this.messageType = message.getMessageType();
+    }
+
     public String getSenderName() {
         return senderName;
     }
@@ -57,5 +65,16 @@ public class MessageDTO {
 
     public void setMessageBody(String messageBody) {
         this.messageBody = messageBody;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "senderName='" + senderName + '\'' +
+                ", receiverName='" + receiverName + '\'' +
+                ", createdAt=" + createdAt +
+                ", messageBody='" + messageBody + '\'' +
+                ", messageType='" + messageType + '\'' +
+                '}';
     }
 }

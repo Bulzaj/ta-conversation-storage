@@ -3,11 +3,11 @@ package com.talkactive.taconversationsstorage.model;
 public class ConversationDTO {
 
     private String conversationOwner;
-    private String conversationMember;
+//    private String conversationMember;
 
-    public ConversationDTO(String conversationOwner, String conversationMember) {
+    public ConversationDTO(String conversationOwner/*, String conversationMember*/) {
         this.conversationOwner = conversationOwner;
-        this.conversationMember = conversationMember;
+//        this.conversationMember = conversationMember;
     }
 
     public String getConversationOwner() {
@@ -18,11 +18,11 @@ public class ConversationDTO {
         this.conversationOwner = conversationOwner;
     }
 
-    public String getConversationMember() {
-        return conversationMember;
-    }
+//    public String getConversationMember() {
+//        return conversationMember;
+//    }
 
-    public void setConversationMember(String conversationMember) {
-        this.conversationMember = conversationMember;
-    }
+//    public void setConversationMember(String conversationMember) {
+//        this.conversationMember = conversationMember;
+//    }
 }

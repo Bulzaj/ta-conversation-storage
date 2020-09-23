@@ -1,7 +1,6 @@
 package com.talkactive.taconversationsstorage.controller;
 
 import com.talkactive.taconversationsstorage.model.ConversationDTO;
-import com.talkactive.taconversationsstorage.model.Message;
 import com.talkactive.taconversationsstorage.model.MessageDTO;
 import com.talkactive.taconversationsstorage.service.ConversationService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/conversation")
@@ -32,5 +30,10 @@ public class ConversationController {
     @GetMapping("/")
     public ResponseEntity<List<ConversationDTO>> conversations(Principal principal) {
         return new ResponseEntity<>(conversationService.getConversations(principal), HttpStatus.OK);
+    }
+
+    @GetMapping("/messages/{conversationMember}")
+    public ResponseEntity<List<MessageDTO>> getMessages (Principal principal, @PathVariable String conversationMember) {
+        return new ResponseEntity<>(conversationService.getMessages(principal, conversationMember), HttpStatus.OK);
     }
 }
