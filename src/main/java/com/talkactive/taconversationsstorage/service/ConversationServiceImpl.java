@@ -4,13 +4,10 @@ import com.talkactive.taconversationsstorage.model.*;
 import com.talkactive.taconversationsstorage.repository.ConversationRepository;
 import com.talkactive.taconversationsstorage.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,15 +72,40 @@ public class ConversationServiceImpl implements ConversationService {
         return messageDTO;
     }
 
+//    @Override
+//    public List<ConversationDTO> getConversations(Principal principal) {
+//        List<ConversationDTO> conversations = new ArrayList<>();
+//        conversationRepository.findAllByConversationOwner(principal.getName())
+//                .forEach(conversation -> {
+//                    conversations.add(new ConversationDTO(conversation.getConversationOwner()/*, conversation.getConversationMember()*/));
+//                });
+//        if (!conversations.isEmpty()) return conversations;
+//        else return null;
+//    }
+
+
     @Override
-    public List<ConversationDTO> getConversations(Principal principal) {
-        List<ConversationDTO> conversations = new ArrayList<>();
-        conversationRepository.findAllByConversationOwner(principal.getName())
-                .forEach(conversation -> {
-                    conversations.add(new ConversationDTO(conversation.getConversationOwner()/*, conversation.getConversationMember()*/));
-                });
-        if (!conversations.isEmpty()) return conversations;
-        else return null;
+    public ConversationsListDTO getConversations(Principal principal) {
+        ConversationsListDTO result = new ConversationsListDTO();
+        result.setConversationOwner(principal.getName());
+        Optional<Conversation> conversation = conversationRepository.findByConversationOwner(principal.getName());
+        if (conversation.isPresent()) {
+            List<String> participants = new ArrayList<>();
+            log.info("conversation is present");
+
+            conversation.get().getMessages().forEach(message -> {
+                participants.add(message.getReceiverName());
+                participants.add(message.getSenderName());
+            });
+
+            Set<String> participantsSet = new HashSet<>(participants);
+            participantsSet.remove(principal.getName());
+            participants.clear();
+            participants.addAll(participantsSet);
+            participants.forEach(participant -> log.info(participant));
+            result.setConversationsParticipants(participants);
+        }
+        return result;
     }
 
     @Override

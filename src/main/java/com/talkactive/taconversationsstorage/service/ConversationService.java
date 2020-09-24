@@ -1,6 +1,6 @@
 package com.talkactive.taconversationsstorage.service;
 
-import com.talkactive.taconversationsstorage.model.ConversationDTO;
+import com.talkactive.taconversationsstorage.model.ConversationsListDTO;
 import com.talkactive.taconversationsstorage.model.MessageDTO;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ public interface ConversationService {
 
     MessageDTO save(MessageDTO messageDTO);
 
-    List<ConversationDTO> getConversations(Principal principal);
+    ConversationsListDTO getConversations(Principal principal);
 
     List<MessageDTO> getMessages(Principal principal, String conversationMember);
 }

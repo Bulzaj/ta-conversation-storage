@@ -15,6 +15,6 @@ public interface ConversationRepository extends JpaRepository<Conversation, UUID
 
 //    Optional<Conversation> findByConversationOwnerAndConversationMember(String conversationOwner, String conversationMember);
     Optional<Conversation> findByConversationOwner(String conversationOwner);
-    List<Conversation> findAllByConversationOwner(String conversationOwner);
+//    List<Conversation> findAllByConversationOwner(String conversationOwner);
 
 }

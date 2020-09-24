@@ -1,6 +1,6 @@
 package com.talkactive.taconversationsstorage.controller;
 
-import com.talkactive.taconversationsstorage.model.ConversationDTO;
+import com.talkactive.taconversationsstorage.model.ConversationsListDTO;
 import com.talkactive.taconversationsstorage.model.MessageDTO;
 import com.talkactive.taconversationsstorage.service.ConversationService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class ConversationController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ConversationDTO>> conversations(Principal principal) {
+    public ResponseEntity<ConversationsListDTO> conversations(Principal principal) {
         return new ResponseEntity<>(conversationService.getConversations(principal), HttpStatus.OK);
     }
 
