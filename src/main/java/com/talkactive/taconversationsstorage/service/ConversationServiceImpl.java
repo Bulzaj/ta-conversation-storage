@@ -4,6 +4,7 @@ import com.talkactive.taconversationsstorage.model.*;
 import com.talkactive.taconversationsstorage.repository.ConversationRepository;
 import com.talkactive.taconversationsstorage.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -16,10 +17,12 @@ public class ConversationServiceImpl implements ConversationService {
 
     private ConversationRepository conversationRepository;
     private MessageRepository messageRepository;
+    private StandardPBEStringEncryptor encryptor;
 
-    public ConversationServiceImpl(ConversationRepository conversationRepository, MessageRepository messageRepository) {
+    public ConversationServiceImpl(ConversationRepository conversationRepository, MessageRepository messageRepository, StandardPBEStringEncryptor encryptor) {
         this.conversationRepository = conversationRepository;
         this.messageRepository = messageRepository;
+        this.encryptor = encryptor;
     }
 
 //    @Override
@@ -61,7 +64,10 @@ public class ConversationServiceImpl implements ConversationService {
                 .orElse(new Conversation(messageDTO.getReceiverName(), new ArrayList<>()));
 
         senderMessage.setConversation(senderConversation);
+        senderMessage.setMessageBody(encryptor.encrypt(messageDTO.getMessageBody()));
+
         receiverMessage.setConversation(receiverConversation);
+        receiverMessage.setMessageBody(encryptor.encrypt(messageDTO.getMessageBody()));
 
         conversationRepository.save(senderConversation);
         messageRepository.save(senderMessage);
@@ -118,6 +124,8 @@ public class ConversationServiceImpl implements ConversationService {
                             .filter(message -> message.getReceiverName().equals(conversationMember) || message.getSenderName().equals(conversationMember))
                             .collect(Collectors.toList());
                     filteredList.forEach(message -> {
+                        String messageBody = message.getMessageBody();
+                        message.setMessageBody(encryptor.decrypt(messageBody));
                         messages.add(new MessageDTO(message));
                     });
             return messages;
