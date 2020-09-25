@@ -13,8 +13,6 @@ public class Conversation {
 
     private String conversationOwner;
 
-//    private String conversationMember;
-
     @OneToMany(
             mappedBy = "conversation",
             cascade = CascadeType.ALL
@@ -24,9 +22,8 @@ public class Conversation {
     public Conversation() {
     }
 
-    public Conversation(String conversationOwner, /*String conversationMember,*/ List<Message> messages) {
+    public Conversation(String conversationOwner, List<Message> messages) {
         this.conversationOwner = conversationOwner;
-//        this.conversationMember = conversationMember;
         this.messages = messages;
     }
 
@@ -46,13 +43,6 @@ public class Conversation {
         this.conversationOwner = conversationOwner;
     }
 
-//    public String getConversationMember() {
-//        return conversationMember;
-//    }
-
-//    public void setConversationMember(String conversationMember) {
-//        this.conversationMember = conversationMember;
-//    }
 
     public List<Message> getMessages() {
         return messages;

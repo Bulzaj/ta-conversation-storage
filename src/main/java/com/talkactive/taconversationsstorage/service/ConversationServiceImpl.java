@@ -15,42 +15,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ConversationServiceImpl implements ConversationService {
 
-    private ConversationRepository conversationRepository;
-    private MessageRepository messageRepository;
-    private StandardPBEStringEncryptor encryptor;
+    private final ConversationRepository conversationRepository;
+    private final MessageRepository messageRepository;
+    private final StandardPBEStringEncryptor encryptor;
 
     public ConversationServiceImpl(ConversationRepository conversationRepository, MessageRepository messageRepository, StandardPBEStringEncryptor encryptor) {
         this.conversationRepository = conversationRepository;
         this.messageRepository = messageRepository;
         this.encryptor = encryptor;
     }
-
-//    @Override
-//    public MessageDTO save(MessageDTO messageDTO) {
-//
-//        Message senderMessage = new Message(messageDTO);
-//        Message receiverMessage = new Message(messageDTO);
-//
-//        Conversation senderConversation = conversationRepository.findByConversationOwnerAndConversationMember(messageDTO.getSenderName(), messageDTO.getReceiverName())
-//                .orElse(new Conversation(messageDTO.getSenderName(), messageDTO.getReceiverName(), new ArrayList<>()));
-//        senderConversation.getMessages().add(senderMessage);
-//
-//        Conversation receiverConversation = conversationRepository.findByConversationOwnerAndConversationMember(messageDTO.getReceiverName(), messageDTO.getSenderName())
-//                .orElse(new Conversation(messageDTO.getReceiverName(), messageDTO.getSenderName(), new ArrayList<>()));
-//        receiverConversation.getMessages().add(receiverMessage);
-//
-//        senderMessage.setConversation(senderConversation);
-//        receiverMessage.setConversation(receiverConversation);
-//
-//        conversationRepository.save(senderConversation);
-//        messageRepository.save(senderMessage);
-//
-//        conversationRepository.save(receiverConversation);
-//        messageRepository.save(receiverMessage);
-//
-//        return messageDTO;
-//    }
-
 
     @Override
     public MessageDTO save(MessageDTO messageDTO) {
@@ -77,18 +50,6 @@ public class ConversationServiceImpl implements ConversationService {
 
         return messageDTO;
     }
-
-//    @Override
-//    public List<ConversationDTO> getConversations(Principal principal) {
-//        List<ConversationDTO> conversations = new ArrayList<>();
-//        conversationRepository.findAllByConversationOwner(principal.getName())
-//                .forEach(conversation -> {
-//                    conversations.add(new ConversationDTO(conversation.getConversationOwner()/*, conversation.getConversationMember()*/));
-//                });
-//        if (!conversations.isEmpty()) return conversations;
-//        else return null;
-//    }
-
 
     @Override
     public ConversationsListDTO getConversations(Principal principal) {
@@ -130,38 +91,6 @@ public class ConversationServiceImpl implements ConversationService {
                     });
             return messages;
         }
-
-//        if (conversation.isPresent()) {
-//            List<MessageDTO> messages;
-////            conversation.get().getMessages().forEach(message -> {
-////                messages.add(new MessageDTO(message));
-////            });
-//            messages = conversation.get().getMessages()
-//                    .stream()
-//                    .filter(message -> message.getReceiverName().equals(conversationMember))
-//                    .map(MessageDTO::new)
-//                    .collect(Collectors.toList());
-//            messages.forEach(messageDTO -> log.info(messageDTO.toString()));
-//            return messages;
-//        }
-
         return new ArrayList<>();
     }
-
-//    @Override
-//    public List<MessageDTO> getMessages(Principal principal, String conversationMember) {
-//        Optional<Conversation> conversation = conversationRepository.findByConversationOwnerAndConversationMember(principal.getName(), conversationMember);
-//        List<MessageDTO> messageDTOS = new ArrayList<>();
-//        if (conversation.isPresent()) {
-//            log.info("conversation is present");
-//            List<Message> messages = conversation.get().getMessages();
-//            messages.forEach(message -> {
-//                messageDTOS.add(new MessageDTO(message));
-//            });
-//            messageDTOS.forEach(message -> {
-//                log.info(message.toString());
-//            });
-//            return messageDTOS;
-//        } else return new ArrayList<>();
-//    }
 }

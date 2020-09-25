@@ -8,16 +8,16 @@ public class ConversationsListDTO {
     private String conversationOwner;
     private List<String> conversationsParticipants = new ArrayList<>();
 
-    public String getConversationOwner() {
-        return conversationOwner;
-    }
-
     public ConversationsListDTO() {
     }
 
     public ConversationsListDTO(String conversationOwner, List<String> conversationsParticipants) {
         this.conversationOwner = conversationOwner;
         this.conversationsParticipants = conversationsParticipants;
+    }
+
+    public String getConversationOwner() {
+        return conversationOwner;
     }
 
     public void setConversationOwner(String conversationOwner) {
