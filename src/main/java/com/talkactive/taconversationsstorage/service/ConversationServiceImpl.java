@@ -58,7 +58,6 @@ public class ConversationServiceImpl implements ConversationService {
         Optional<Conversation> conversation = conversationRepository.findByConversationOwner(principal.getName());
         if (conversation.isPresent()) {
             List<String> participants = new ArrayList<>();
-            log.info("conversation is present");
 
             conversation.get().getMessages().forEach(message -> {
                 participants.add(message.getReceiverName());
@@ -69,7 +68,6 @@ public class ConversationServiceImpl implements ConversationService {
             participantsSet.remove(principal.getName());
             participants.clear();
             participants.addAll(participantsSet);
-            participants.forEach(participant -> log.info(participant));
             result.setConversationsParticipants(participants);
         }
         return result;
